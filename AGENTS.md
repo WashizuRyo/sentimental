@@ -31,3 +31,4 @@
 - データ分割は WRIME Ver.2 の公式分割に従う。
 - 学習用 30,000 件，検証用 2,500 件，テスト用 2,500 件を前提にする。
 - 文章や実験設定を変えるときは，`thesis/intro.md` の記述と矛盾しないようにする。
+- 論文の書式は，まず `thesis/format/thesis_format_manual_20250307.pdf` を優先し，詳細確認が必要な場合は `thesis/format/japanese_psychological_association_writing_manual_2015.pdf` を参照する。
