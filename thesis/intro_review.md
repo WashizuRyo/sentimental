@@ -1,4 +1,4 @@
-# intro.md レビュー
+SNS# intro.md レビュー
 
 対象: `thesis/intro.md`
 
