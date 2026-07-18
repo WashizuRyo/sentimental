@@ -1,0 +1,4 @@
+interface:
+  display_name: "論文執筆・レビュー"
+  short_description: "指定範囲を執筆し、引用・一貫性レビューが収束するまで修正します"
+  default_prompt: "Use $thesis-write to write the specified thesis section and loop through citation and consistency reviews until no actionable findings remain."

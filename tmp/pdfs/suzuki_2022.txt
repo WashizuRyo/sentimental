@@ -1,0 +1,520 @@
+                                               Proceedings of the 13th Conference on Language Resources and Evaluation (LREC 2022), pages 7022–7028
+                                                                                                                           Marseille, 20-25 June 2022
+                                                                    © European Language Resources Association (ELRA), licensed under CC-BY-NC-4.0
+
+
+
+
+                   A Japanese Dataset for Subjective and Objective
+                Sentiment Polarity Classification in Micro Blog Domain
+
+         Haruya Suzuki† , Yuto Miyauchi† , Kazuki Akiyama† , Tomoyuki Kajiwara† ,
+        Takashi Ninomiya† , Noriko Takemura‡ , Yuta Nakashima‡ , Hajime Nagahara‡
+                                           †
+                                    Ehime University, ‡ Osaka University
+                        {suzuki, miyauchi, k akiyama}@ai.cs.ehime-u.ac.jp
+                              {kajiwara, ninomiya}@cs.ehime-u.ac.jp
+                         {takemura, n-yuta, nagahara}@ids.osaka-u.ac.jp
+
+                                                            Abstract
+We annotate 35,000 SNS posts with both the writer’s subjective sentiment polarity labels and the reader’s objective ones to
+construct a Japanese sentiment analysis dataset. Our dataset includes intensity labels (none, weak, medium, and strong) for each
+of the eight basic emotions by Plutchik (joy, sadness, anticipation, surprise, anger, fear, disgust, and trust) as well as sentiment
+polarity labels (strong positive, positive, neutral, negative, and strong negative). Previous studies on emotion analysis have
+studied the analysis of basic emotions and sentiment polarity independently. In other words, there are few corpora that are
+annotated with both basic emotions and sentiment polarity. Our dataset is the first large-scale corpus to annotate both of these
+emotion labels, and from both the writer’s and reader’s perspectives. In this paper, we analyze the relationship between basic
+emotion intensity and sentiment polarity on our dataset and report the results of benchmarking sentiment polarity classification.
+
+Keywords: sentiment analysis, emotion detection, Japanese
+
+
+                   1.    Introduction                               from 60 subjective annotators. We annotated emotional
+                                                                    intensity with a four-point scale (none, weak, medium,
+Emotion analysis is one of the major natural language
+                                                                    and strong) and sentiment polarity with a five-point
+processing tasks with many applications such as dia-
+                                                                    scale (strong positive, positive, neutral, negative, and
+logue systems (Tokuhisa et al., 2008) and social me-
+                                                                    strong negative). Our comprehensively annotated cor-
+dia mining (Stieglitz and Dang-Xuan, 2013). Previous
+                                                                    pus allows for analysis of relationships between labels
+studies in emotion analysis have addressed two sub-
+                                                                    and differences by annotator. Our dataset shown in
+tasks: classification of sentiment polarity (Sentiment
+                                                                    Table 2 for Japanese emotion analysis is available on
+Analysis) and classification of basic emotions (Emo-
+                                                                    GitHub.1
+tion Detection). The former targets positive or negative
+                                                                    In this paper, we analyze the relationship between basic
+sentiment polarity, while the latter targets about four to
+                                                                    emotion intensity and sentiment polarity on our dataset
+eight basic emotions, such as joy and sadness (Plutchik,
+                                                                    and report the results of benchmarking sentiment po-
+1980; Ekman, 1992).
+                                                                    larity classification. The correlation between emo-
+As shown in Table 1, previous studies on emotion anal-              tional intensity and sentiment polarity shows that of
+ysis have been diverse in terms of whether it deals                 Plutchik’s eight emotions, joy, anticipation, and trust
+with sentiment polarity (Sentiment) or basic emotions               are positive emotions, sadness, anger, fear, and disgust
+(Emotion), and whether it deals with the emotions of                are negative emotions, and surprise is neither. We also
+the writer of the text (Subjective Emotion) or the emo-             found that text in which multiple emotions co-occur
+tions of the reader of the text (Objective Emotion).                is easier for readers to perceive the sentiment polar-
+However, the relationship between sentiment polarity                ity of the writer than that of containing only a single
+and basic emotions, as well as the relationship between             emotion. Similar to the previous study on emotional
+the writer’s emotions and the reader’s ones, are not                intensity (Kajiwara et al., 2021), we also found that
+clear, as there is no previous study that has compre-               text readers weakly estimated the sentiment polarity of
+hensively addressed these issues.                                   the writers. Experimental results on sentiment polarity
+In this study, to extend the WRIME dataset (Kajiwara                classification showed that it is more difficult to estimate
+et al., 2021) with basic emotion intensity from both                the subjective labels by the writer than the objective
+subjective and objective standpoints for Japanese SNS               ones by the reader.
+text, we annotated sentiment polarity labels from both
+subjective and objective standpoints for these texts.                                  2.    Related Work
+Specifically, one subjective annotator and three objec-             Table 1 lists the popular datasets for emotion analysis in
+tive annotators annotated both labels of the sentiment              English and Japanese. These are summarized in terms
+polarity and the intensity of each of Plutchik’s eight              of whether the target is sentiment polarity (Sentiment)
+emotions (joy, sadness, anticipation, surprise, anger,
+                                                                        1
+fear, disgust, and trust) to 35,000 SNS posts collected                     https://github.com/ids-cv/wrime
+
+                                                              7022
+                                                         Sentiment        Emotion    Subj.    Obj.    Language           Size
+ IMDB (Maas et al., 2011)                                    ✓              ×          ✓       ×       English         50,000
+ SST (Socher et al., 2013)                                   ✓              ×          ×       ✓       English         11,855
+ ISEAR (Scherer and Wallbott, 1994)                          ×              ✓          ✓       ×       English          7,666
+ SemEval-2018 (Mohammad et al., 2018)                        ×              ✓          ×       ✓       English         12,634
+ SemEval-2007 (Strapparava and Mihalcea, 2007)               ✓              ✓          ×       ✓       English          1,250
+ Tsukuba sentiment-tagged corpus                             ✓              ×          ×       ✓      Japanese          4,309
+ (Suzuki, 2019)                                              ✓              ×          ×       ✓      Japanese        534,962
+ WRIME (Kajiwara et al., 2021)                               ×              ✓          ✓       ✓      Japanese         17,000
+ Ours                                                        ✓              ✓          ✓       ✓      Japanese         35,000
+
+                                     Table 1: List of sentiment analysis datasets.
+
+ Text         I’m taking the summer off next month to go out! I’m looking forward to it!
+              Joy    Sadness     Anticipation    Surprise     Anger        Fear     Disgust   Trust    Sentiment polarity
+ Writer        3        0             3              0            0         0         0         0                2
+ Reader 1      2        0             2              0            0         0         0         0                2
+ Reader 2      3        0             3              0            0         0         0         0                2
+ Reader 3      3        0             3              0            0         0         0         0                2
+
+ Text         My umbrella was stolen!!
+              Joy    Sadness     Anticipation    Surprise     Anger        Fear     Disgust   Trust    Sentiment polarity
+ Writer        0        2             0              0            2         0         3         0                -2
+ Reader 1      0        0             0              0            2         0         0         0                -1
+ Reader 2      0        3             0              0            3         0         3         0                -2
+ Reader 3      0        0             0              0            3         0         0         0                -2
+
+ Text         Snowy morning with a light dusting of snow on the roof...
+              Joy    Sadness     Anticipation    Surprise     Anger        Fear     Disgust   Trust    Sentiment polarity
+ Writer        0        0             0              2            0         0         0         0                0
+ Reader 1      0        0             0              0            0         0         0         0                0
+ Reader 2      1        0             0              1            0         0         0         0                0
+ Reader 3      0        0             0              1            0         0         0         0                0
+
+                                          Table 2: Examples of our dataset.
+
+
+or basic emotions (Emotion), and whether the annota-             subjective rating values on a 10-point scale for movies
+tor is the text writer (Subj.) or the reader (Obj.). While       and deals with the subjective sentiment polarity of the
+previous studies have constructed datasets labeled for           review texts by their writers. SST is also a corpus of
+some of these perspectives, we annotate all of them si-          sentiment polarity classification for movie review texts,
+multaneously to construct a new dataset for a compre-            but it deals with objective sentiment polarity, as a five-
+hensive analysis of text and emotion.                            point scale sentiment polarity is estimated by annota-
+                                                                 tors different from the writers of the review texts.
+2.1.    Corpus with Sentiment Polarity                           Tsukuba sentiment-tagged corpus is a corpus of review
+Popular datasets for sentiment polarity classification           sentences from a hotel booking website with 6 types
+include the Internet Movie Database (IMDB) (Maas                 of labels: praise, complaint, request, neutral, no eval-
+et al., 2011) and Stanford Sentiment Treebank                    uation, and other. Suzuki (2019) annotates positive or
+(SST) (Socher et al., 2013) in English, and the                  negative sentiment polarity labels to Twitter posts that
+Tsukuba sentiment-tagged corpus2 and Suzuki (2019)3              mention products. The ACP corpus4 (Kaji and Kitsure-
+in Japanese.                                                     gawa, 2006), which estimates positive or negative sen-
+IMDB is a corpus that collects pairs of review texts and         timent polarity labels to roughly one million sentences
+                                                                 collected from the web, is the largest corpus for senti-
+   2
+    http://www.nlp.mibel.cs.tsukuba.ac.                          ment polarity classification in Japanese, but it is auto-
+jp/˜inui/SA/corpus/
+  3                                                                   4
+    http://www.db.info.gifu-u.ac.jp/                                http://www.tkl.iis.u-tokyo.ac.jp/
+sentiment_analysis/                                              ˜kaji/acp/
+
+                                                          7023
+                  Joy    Sadness    Anticipation   Surprise   Anger      Fear    Disgust    Trust   Emotions     Sentiment
+ R1 vs. R2       0.580    0.474        0.528        0.468     0.610      0.430    0.399     0.208     0.508        0.608
+ R1 vs. R3       0.664    0.507        0.588        0.417     0.625      0.412    0.490     0.209     0.540        0.688
+ R2 vs. R3       0.657    0.589        0.596        0.471     0.638      0.468    0.378     0.234     0.562        0.530
+ W vs. R1        0.481    0.309        0.378        0.340     0.274      0.343    0.320     0.137     0.367        0.564
+ W vs. R2        0.587    0.434        0.441        0.402     0.297      0.357    0.452     0.114     0.450        0.493
+ W vs. R3        0.544    0.483        0.429        0.352     0.313      0.357    0.286     0.133     0.427        0.605
+ W vs. Avg. R    0.579    0.453        0.463        0.417     0.303      0.415    0.425     0.121     0.458        0.621
+
+                         Table 3: Inter-annotator agreement by quadratic weighted kappa.
+
+
+matically annotated.                                          four-point scale (none, weak, medium, and strong), and
+                                                              also annotated sentiment polarity at a five-point scale
+2.2.    Corpus with Basic Emotions                            (strong positive, positive, neutral, negative, and strong
+Popular datasets for emotional intensity estimation of        negative). Here, for the purpose of emotion analysis
+basic emotions include ISEAR (Scherer and Wallbott,           from text, posts with images or URLs were excluded.
+1994) and SemEval-2018 (Mohammad et al., 2018)                Each annotator labeled 100 to 1,000 posts, and a total
+in English and WRIME (Kajiwara et al., 2021) in               of 35,000 posts were collected. All subjective anno-
+Japanese.                                                     tators labeled both emotional intensity and sentiment
+ISEAR is a corpus for subjective emotional classifica-        polarity labels to all posts that they provided. We did
+tion that collects pairs of text and emotion labels writ-     not set any restrictions on the time of post, as a result,
+ten about one’s events in the past. In SemEval-2018           posts were collected for a range of 10 years, from Au-
+Task15 , a corpus for objective emotional intensity es-       gust 2010 to November 2020.
+timation was constructed using crowdsourcing to esti-         To evaluate the quality of the collected sentiment po-
+mate emotional intensity to Twitter posts.                    larity labels, 30 posts were randomly selected for each
+WRIME is a corpus of Japanese SNS posts with                  annotator. One of our undergraduate students evalu-
+Plutchik’s eight emotional intensities (Plutchik, 1980)       ated the posts and the sentiment polarity labels on a
+from the perspective of both the writer and the reader.       four-point scale based on the following criteria.
+These corpora for basic emotions are expensive be-
+cause they label multiple types of emotions, and are             • 3: I fully agree with the given label.
+smaller in scale than the corpora for sentiment polarity         • 2: I can find the relevance between the post and
+classification introduced in Section 2.1.                          label.
+A dataset that deals with both basic emotions and sen-
+timent polarity is the SemEval-2007 Task146 (Strap-              • 1: I hardly find the relevance between the post and
+parava and Mihalcea, 2007) corpus. This is a cor-                  label.
+pus from English news headlines objectively annotated
+with sentiment polarity and Ekman’s six emotion in-              • 0: I do not think the annotator seriously engaged
+tensities (Ekman, 1992), respectively. There is no cor-            for this post.
+pus in Japanese that deals with both basic emotions and       The average of the evaluation results for each annota-
+sentiment polarity.                                           tor was 2.4 with a minimum score of 1.9 and a max-
+                                                              imum score of 2.8. There were no posts with a score
+       3.   Sentiment Polarity Annotation                     of zero. Four annotators scored below the average of 2
+3.1.    Annotating Subjective Labels                          points, but there were no annotators with significantly
+We employed7 60 subjective annotators using the               low quality.
+crowdsourcing service Lancers8 . Our annotators con-
+                                                              3.2.      Annotating Objective Labels
+sist of the gender breakdown of the annotators was 21
+males and 39 females, and the age breakdown was 28            Three objective annotators were hired,9 also using
+people in their 20s, 22 people in their 30s, and 10 peo-      Lancers. The annotators consist of two women in their
+ple over 40 years old. The subjective annotators la-          30s and one in her 40s. The objective annotators la-
+beled the intensity of each of Plutchik’s eight emo-          beled all 35,000 posts collected in Section 3.1 with both
+tions (Plutchik, 1980) to their past posts on the SNS at a    emotional intensity and sentiment polarity in the same
+                                                              way as the subjective annotations. However, while
+   5
+    https://competitions.codalab.org/                         the subjective annotators labeled the emotions of them-
+competitions/17751                                            selves, the writers of the text, the objective annotators
+  6
+    http://web.eecs.umich.edu/˜mihalcea/                      labeled the emotions of the writers that the readers es-
+affectivetext/                                                timated from the text.
+  7
+    We paid 10 JPY per post for subjective annotators.
+  8                                                              9
+    https://www.lancers.jp/                                          We paid 3 JPY per post for objective annotators.
+
+                                                         7024
+                                                 -2          -1            0         +1      +2
+                            Writer           4,105     6,465        10,380         9,415   4,635
+                            Avg. Readers     1,687    10,468        11,462         9,138   2,245
+                            Reader 1         2,254    10,316         8,741        11,216   2,473
+                            Reader 2         1,056     4,029        20,147         8,510   1,258
+                            Reader 3         9,581     4,256        10,687         2,841   7,635
+
+                         Table 4: Distribution of sentiment polarity labels by the annotator.
+
+
+To evaluate the quality of annotations, we calculated                                        Avg. Readers
+the inter-annotator agreement using quadratic weighted
+                                                                         Writer       -2     -1      0      +1    +2
+kappa10 (Cohen, 1968). The upper part of Table 3
+shows the agreement between the objective annota-                         +2         0.2    5.0    24.3   47.5   23.0
+tors. Although anger has a substantial agreement of                       +1         0.6    8.2    32.7   48.1   10.5
+κ > 0.6 and trust has a fair agreement of κ < 0.4,                        0          1.8   27.8    49.3   19.4    1.6
+the overall moderate agreement of the eight emotions                      -1         9.3   63.7    23.2    3.7    0.2
+is 0.5 < κ < 0.6. In terms of sentiment polarity, mod-                    -2        20.3   59.9    15.7    3.8    0.2
+erate to substantial agreement was also confirmed.
+                                                                  Table 5: Confusion matrix of subjective and objective
+                    4.    Analysis                                sentiment polarity labels. (%)
+The lower part of Table 3 shows the inter-annotater
+agreement between subjective and objective annota-
+tors. Similar to the previous study (Kajiwara et al.,             Reader 3 labels more strong positives and strong nega-
+2021), for basic eight emotions, the overall agreement            tives. The average over the three annotators shows sim-
+between subjective and objective annotators is lower              ilar trends to the subjective annotators, but with fewer
+than the agreement between objective annotators. A                extreme strong positive and strong negative and more
+similar trend was observed for the newly labeled sen-             negative labels.
+timent polarities in the present study. Note that when            Table 5 shows the confusion matrix between the sen-
+the labels of the three objective annotators were aver-           timent polarity labels of the subjective annotators and
+aged, the overall agreement with the subjective annota-           the averaged labels of the three objective annotators.
+tors slightly improved.                                           In the posts where the subjective annotators labeled
+Other characteristics related to the basic eight emotions         strong positive, the objective annotators estimated pos-
+showed the same trend as in the previous study (Kaji-             itives (47.5%) and strong positives (23.0%) to 70.5%
+wara et al., 2021). Although the number of subjective             of them. In addition, the subjective annotators labeled
+annotators and the number of labeled posts increased in           strong negative, the objective annotators estimated neg-
+this study, this is not surprising because the annotation         atives (59.9%) and strong negatives (20.3%) to 80.2%
+method for emotional intensity are follows the previous           of them. Note that the percentage of positive and neg-
+study (Kajiwara et al., 2021). In the following sections,         ative reversals between subjective and objective anno-
+we will investigate the newly labeled sentiment polar-            tators is sufficiently small, ranging from 3.9% to 8.8%.
+ities in this study. Here, the labels for strong positive,        These observations indicate that although objective an-
+positive, neutral, negative, and strong negative will be          notators succeed in roughly estimating the sentiment
+denoted as +2, +1, 0, -1, and -2, respectively.                   polarity of subjective annotators, they tend to estimate
+                                                                  the intensity of sentiment polarity more weakly.
+4.1.   Distribution of Sentiment Polarity                         In the previous study (Kajiwara et al., 2021), it was
+Table 4 shows the distribution of the sentiment po-               pointed out that objective annotators tend to estimate
+larity labels for each annotator. The sentiment po-               emotional intensity weaker than subjective annotators
+larity labels of the subjective annotators (writers) are          for basic emotions. Similarly, we found that objective
+most often neutral, with relatively few extreme labels            annotators tended to be less likely to give extreme sen-
+of strong positive and strong negative. The three ob-             timent polarity labels on average, and to estimate senti-
+jective annotators (readers) showed different character-          ment polarity more weakly than subjective annotators.
+istics. Reader 1 labeled more positives and negatives
+than neutrals. Reader 2 has a similar tendency to the
+                                                                  4.2.    Relationship between Emotional
+writers, but estimated more neutral labels and less ex-
+                                                                          Intensity and Sentiment Polarity
+treme labels (i.e., strong positive and strong negative).         Table 6 shows the Pearson correlation between emo-
+                                                                  tional intensity and sentiment polarity. Here, the cor-
+  10
+   https://scikit-learn.org/stable/                               relation coefficients were calculated by expressing the
+modules/generated/sklearn.metrics.cohen_                          four-levels of emotional intensity as 0, 1, 2, and 3 (no,
+kappa_score.html                                                  weak, medium, and strong), and the five-levels of sen-
+
+                                                         7025
+                                              Joy      Sadness                       Anticipation            Surprise     Anger                        Fear        Disgust       Trust
+                         Writer              0.585      -0.526                             0.381               0.052      -0.353                      -0.298        -0.467      0.296
+                         Avg. Readers        0.665      -0.539                             0.400               0.037      -0.229                      -0.410        -0.470      0.252
+
+                             Table 6: Pearson correlation coefficient between emotional intensity and sentiment polarity.
+
+                                   Joy                                                        Surprise                                                         Sadness
+                                                      8000                                                              8000                                                             8000
+                        17    53   432 1669 2195      7000                           253    325    568   499    484     7000                           1499 805     394   185   61       7000
+            3
+
+
+
+
+                                                                         3
+
+
+
+
+                                                                                                                                            3
+Emotional Intensity
+
+
+
+
+                                                             Emotional Intensity
+
+
+
+
+                                                                                                                                Emotional Intensity
+                                                      6000                                                              6000                                                             6000
+                        27   125   891 2339 1134      5000                           239    574    884   815    465     5000                           1058 1466 788      326   75       5000
+            2
+
+
+
+
+                                                                         2
+
+
+
+
+                                                                                                                                            2
+                                                      4000                                                              4000                                                             4000
+                        79   336 1600 2364 572        3000                           335    802 1747 1145 445           3000                            661 2065 1993 722       160      3000
+            1
+
+
+
+
+                                                                         1
+
+
+
+
+                                                                                                                                            1
+                                                      2000                                                              2000                                                             2000
+                       3982 5951 7457 3043 734        1000                          3278 4764 7181 6956 3241            1000                            887 2129 7205 8182 4339          1000
+            0
+
+
+
+
+                                                                         0
+
+
+
+
+                                                                                                                                            0
+                        -2    -1   0     1    2                                      -2     -1     0     1      2                                       -2    -1     0    1     2
+                      Negative / Neutral / Positive                                Negative / Neutral / Positive                                      Negative / Neutral / Positive
+
+                             Figure 1: Distribution of emotional intensity and sentiment polarity of subjective annotators.
+
+
+timent polarity from -2 to +2. From this table, we can                                                                                                             # Posts      QWK
+see whether each emotion is positive or negative. For
+example, since there is a positive correlation between                                                                 No emotion                                  11,395       0.496
+emotional intensity and sentiment polarity for joy, the                                                                Single emotion                              12,281       0.590
+more joyful a post is, the more positive it is.                                                                        Multiple emotions                           11,324       0.697
+From this analysis, we can say that three of Plutchik’s
+                                                                                                          Table 7: Agreement between sentiment polarity labels
+eight emotions, joy, anticipation, and trust, are posi-
+                                                                                                          by subjective annotators and those by objective annota-
+tive emotions, and four of them, sadness, anger, fear,
+                                                                                                          tors.
+and disgust, are negative emotions. The correlation be-
+tween emotional intensity and sentiment polarity was
+particularly strong for joy among the positive emotions                                                   between sentiment polarity labels by subjective an-
+and for sadness among the negative emotions.                                                              notators and those by objective annotators is higher
+Figure 1 shows the distribution of emotional intensity                                                    for single-emotion posts than for no-emotion posts.
+and sentiment polarity. This figure also confirms the                                                     Furthermore, there is more agreement on multiple-
+positive correlation between emotional intensity and                                                      emotions posts than on single-emotion posts.
+sentiment polarity in the emotion of joy and the nega-
+tive correlation in the emotion of sadness. It also shows                                                       5.      Sentiment Polarity Classification
+that the emotion of surprise appears in both positive                                                     For future research and development of emotion anal-
+and negative posts.                                                                                       ysis models, we evaluate the performance of baseline
+In addition, we found that the agreement between la-                                                      models based on machine learning and deep learning
+bels by subjective annotators and those by objective an-                                                  on the dataset in Section 3. Our experiment evaluates
+notators increased for posts in which multiple emotions                                                   the performance of a five-class classification that esti-
+co-occurred. In this analysis, the dataset was divided                                                    mates sentiment polarity {−2, −1, 0, 1, 2} from a given
+into three parts according to the subjective emotional                                                    text.
+intensity as follows.
+                                                                                                          5.1.        Setting
+              • No emotion: All emotional intensities are none or                                         We divided the dataset into training set of 30k posts
+                weak.                                                                                     from 40 writers, validation set of 2.5k posts from 10
+                                                                                                          writers, and evaluation set of 2.5k posts from 10 writ-
+              • Single emotion: Only one emotional intensity is
+                                                                                                          ers. That is, there is no duplication of writers between
+                medium or strong.
+                                                                                                          the splits. The performance of the sentiment polar-
+              • Multiple emotions: Two or more emotional inten-                                           ity classification models is automatically evaluated by
+                sities are medium or strong.                                                              three metrics: accuracy, mean absolute error (MAE),
+                                                                                                          and quadratic weighted kappa (QWK). Two types of
+Table 7 shows the relationship between the co-                                                            experiments are conducted: evaluation using labels by
+occurrence of emotions and the agreement of                                                               subjective annotators and evaluation using the average
+subjective-objective sentiment polarity. The agreement                                                    of labels by three objective annotators.
+
+                                                                                                    7026
+                                                   Subjective                        Objective
+                                         Accuracy      MAE       QWK       Accuracy     MAE       QWK
+                  BoW+LogReg               0.344       0.924     0.359       0.443      0.695     0.444
+                  BERT (Wikipedia)         0.386       0.824     0.512       0.573      0.483     0.695
+                  BERT (SNS)               0.391       0.778     0.558       0.615      0.426     0.743
+                  Subj. BERT (SNS)         0.391       0.778     0.558       0.443      0.646     0.627
+                  Obj. BERT (SNS)          0.436       0.694     0.595       0.615      0.426     0.743
+
+                         Table 8: Experimental results of sentiment polarity classification.
+
+
+We compare the following three types of classifiers.            trained with subjective labels and evaluation in subjec-
+                                                                tive data by objective BERT (SNS) trained with objec-
+   • BoW+LogReg: Bag-of-Words is used for feature               tive labels. These results show that the performance
+     extraction, and logistic regression is used for sen-       of models trained using objective data is consistently
+     timent polarity classification. MeCab (IPADIC-             high, regardless of whether the evaluation target is sub-
+     2.7.0)11 (Kudo et al., 2004) is used for word seg-         jective or objective data. As mentioned earlier, since
+     mentation.                                                 it is difficult to estimate the sentiment polarity of the
+                                                                writer (subjective data), simple training did not provide
+   • BERT (Wikipedia)12 : Japanese BERT (Devlin et
+                                                                sufficient performance.
+     al., 2019) pre-trained using Wikipedia is fine-
+     tuned for this task and the sentiment polarity is
+     estimated as y = softmax(hW ). Where h is the                                6.    Conclusion
+     feature vector obtained from the [CLS] token of            In this study, we extended the dataset for Japanese emo-
+     BERT and W is the trainable parameter.                     tion analysis1 (Kajiwara et al., 2021), approximately
+                                                                doubling its size (35,000 entries) and annotating it with
+   • BERT (SNS)13 : Japanese BERT pre-trained using
+                                                                sentiment polarity labels. This is the first corpus of
+     SNS text is fine-tuned for this task.
+                                                                emotion analysis in Japanese annotated with both the
+To implement the BoW+LogReg model, we use scikit-               basic emotions and sentiment polarity, and the first ef-
+learn14 (Pedregosa et al., 2011). For the hyper-                fort to annotate these emotion labels from both the sub-
+parameter of C, we select the optimal value over the            jective standpoint of the writer and the objective stand-
+validation set from {0.01, 0.1, 1, 10, 100}. To imple-          point of the reader, even in other languages including
+ment the BERT models, we use HuggingFace Trans-                 English. This corpus has enabled us to conduct a com-
+formers15 (Wolf et al., 2020). The batch size is 32, the        prehensive analysis of text and emotion.
+dropout rate is 0.1, the learning rate is 2e-5, the opti-       Our analysis revealed that three emotions, joy, antic-
+mization is Adam (Kingma and Ba, 2015), and early-              ipation, and trust, are positive, while four emotions,
+stopping is applied at 3 epochs.                                sadness, anger, fear, and disgust, are negative. We also
+                                                                found that text in which multiple emotions co-occur is
+5.2.   Results                                                  easier for readers to perceive the sentiment polarity of
+The experimental results are shown in Table 8, where            the writer than that of containing only a single emotion.
+BERT models outperform the BoW+LogReg model,                    The experimental results on the sentiment polarity clas-
+with the best performance achieved by BERT (SNS)                sification show that the estimation of subjective senti-
+pre-trained with SNS text whose domain matches our              ment polarity by the writer is more difficult than the es-
+dataset. The overall performance of BERT on subjec-             timation of objective sentiment polarity by the reader.
+tive data is lower than that on objective data, indicating      We also showed that it is difficult to train a high-quality
+that the estimation of subjective sentiment polarity is         sentiment polarity classification model from a labeled
+more difficult.                                                 corpus of subjective sentiment polarity using simple su-
+The bottom rows of Table 8 show the results of the              pervised learning framework.
+evaluation in objective data by subjective BERT (SNS)           In future work, we plan to improve the performance
+                                                                of subjective sentiment polarity classification by multi-
+  11
+     https://taku910.github.io/mecab/                           task learning with emotional intensity estimation and
+  12
+     https://huggingface.co/cl-tohoku/                          personalize by considering posting history.
+bert-base-japanese-whole-word-masking
+  13
+     https://github.com/hottolink/                                               Acknowledgment
+hottoSNS-bert
+  14
+     https://scikit-learn.org/                                  This work was supported by Innovation Platform for
+  15                                                            Society 5.0 from Japan Ministry of Education, Culture,
+     https://github.com/huggingface/
+transformers                                                    Sports, Science and Technology.
+
+                                                         7027
+          Bibliographical References                           tial Emotion Response Patterning. Journal of Per-
+Cohen, J. (1968). Weighted Kappa: Nominal Scale                sonality and Social Psychology, 66(2):310–328.
+  Agreement Provision for Scaled Disagreement or            Socher, R., Perelygin, A., Wu, J. Y., Chuang, J., Man-
+  Partial Credit. Psychological Bulletin, 70(4):213–           ning, C. D., Ng, A. Y., and Potts, C. (2013). Re-
+  220.                                                         cursive Deep Models for Semantic Compositionality
+Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K.           Over a Sentiment Treebank. In Proceedings of the
+  (2019). BERT: Pre-training of Deep Bidirectional             2013 Conference on Empirical Methods in Natural
+  Transformers for Language Understanding. In Pro-             Language Processing, pages 1631–1642.
+  ceedings of the 2019 Conference of the North Amer-        Stieglitz, S. and Dang-Xuan, L. (2013). Emotions and
+  ican Chapter of the Association for Computational            Information Diffusion in Social Media — Sentiment
+  Linguistics: Human Language Technologies, pages              of Microblogs and Sharing Behavior. Journal of
+  4171–4186.                                                   Management Information Systems, 29(4):217–248.
+Ekman, P. (1992). An Argument for Basic Emotions.           Strapparava, C. and Mihalcea, R. (2007). SemEval-
+  Cognition and Emotion, 6(3–4):169–200.                       2007 Task 14: Affective Text. In Proceedings of the
+Kaji, N. and Kitsuregawa, M. (2006). Automatic Con-            Fourth International Workshop on Semantic Evalua-
+  struction of Polarity-Tagged Corpus from HTML                tions, pages 70–74.
+  Documents. In Proceedings of the 21st International       Suzuki, Y. (2019). Filtering Method for Twit-
+  Conference on Computational Linguistics and 44th             ter Streaming Data Using Human-in-the-Loop Ma-
+  Annual Meeting of the Association for Computa-               chine Learning. Journal of Information Processing,
+  tional Linguistics, pages 452–459.                           27:404–410.
+Kajiwara, T., Chu, C., Takemura, N., Nakashima, Y.,         Tokuhisa, R., Inui, K., and Matsumoto, Y. (2008).
+  and Nagahara, H. (2021). WRIME: A New Dataset                Emotion Classification Using Massive Examples Ex-
+  for Emotional Intensity Estimation with Subjective           tracted from the Web. In Proceedings of the 22nd In-
+  and Objective Annotations. In Proceedings of the             ternational Conference on Computational Linguis-
+  2021 Conference of the North American Chapter of             tics, pages 881–888.
+  the Association for Computational Linguistics: Hu-        Wolf, T., Debut, L., Sanh, V., Chaumond, J., Delangue,
+  man Language Technologies, pages 2095–2104.                  C., Moi, A., Cistac, P., Rault, T., Louf, R., Fun-
+Kingma, D. P. and Ba, J. L. (2015). Adam: A Method             towicz, M., Davison, J., Shleifer, S., von Platen,
+  for Stochastic Optimization. In Proceedings of the           P., Ma, C., Jernite, Y., Plu, J., Xu, C., Scao, T. L.,
+  3rd International Conference on Learning Represen-           Gugger, S., Drame, M., Lhoest, Q., and Rush, A.
+  tations.                                                     (2020). Transformers: State-of-the-Art Natural Lan-
+Kudo, T., Yamamoto, K., and Matsumoto, Y. (2004).              guage Processing. In Proceedings of the 2020 Con-
+  Applying Conditional Random Fields to Japanese               ference on Empirical Methods in Natural Language
+  Morphological Analysis. In Proceedings of the 2004           Processing: System Demonstrations, pages 38–45.
+  Conference on Empirical Methods in Natural Lan-
+  guage Processing, pages 230–237.
+Maas, A. L., Daly, R. E., Pham, P. T., Huang, D., Ng,
+  A. Y., and Potts, C. (2011). Learning Word Vec-
+  tors for Sentiment Analysis. In Proceedings of the
+  49th Annual Meeting of the Association for Com-
+  putational Linguistics: Human Language Technolo-
+  gies, pages 142–150.
+Mohammad, S., Bravo-Marquez, F., Salameh, M., and
+  Kiritchenko, S. (2018). SemEval-2018 Task 1: Af-
+  fect in Tweets. In Proceedings of The 12th Interna-
+  tional Workshop on Semantic Evaluation, pages 1–
+  17.
+Pedregosa, F., Varoquaux, G., Gramfort, A., Michel,
+  V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer,
+  P., Weiss, R., Dubourg, V., Vanderplas, J., Passos,
+  A., Cournapeau, D., Brucher, M., Perrot, M., and
+  Édouard Duchesnay. (2011). Scikit-learn: Machine
+  Learning in Python. Journal of Machine Learning
+  Research, 12(85):2825–2830.
+Plutchik, R. (1980). A General Psychoevolutionary
+  Theory of Emotion. Theories of Emotion, 1:3–31.
+Scherer, K. R. and Wallbott, H. G. (1994). Evidence
+  for Universality and Cultural Variation of Differen-
+
+                                                        7028
+

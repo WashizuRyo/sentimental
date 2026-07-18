@@ -1,0 +1,4 @@
+interface:
+  display_name: "論文本文ライター"
+  short_description: "卒業論文の本文を根拠と整合性を保って執筆・改稿します"
+  default_prompt: "Use $thesis-writer to write or revise the requested thesis section using verified sources and repository conventions."
