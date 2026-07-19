@@ -12,8 +12,7 @@ Kajiwara, T., Chu, C., Takemura, N., Nakashima, Y., & Nagahara, H. (2021). WRIME
 Lacombe, O., Kenealy, K., Black, K., Kumar, R., Visin, F., & Zhang, J. (2025). Gemma 3 270M の概要: 超高効率 AI のためのコンパクトモデル.  
     Google for Developers. https://developers.googleblog.com/ja/introducing-gemma-3-270m/ （2025 年 10 月 20 日閲覧）
 
-Liu, B. (2012). *Sentiment Analysis and Opinion Mining*.
-    Morgan & Claypool Publishers.
+Liu, B. (2012). *Sentiment analysis and opinion mining*. San Rafael, CA: Morgan & Claypool Publishers.
 
 助田 一晟・鈴木 雅弘・坂地 泰紀・小寺 聡 (2024). JMedLoRA：Instruction-tuning による日本語大規模モデルの医療ドメイン適用  
     言語処理学会第 30 回年次大会発表論文集, 2548-2553.
