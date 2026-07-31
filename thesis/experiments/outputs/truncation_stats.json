@@ -1,0 +1,33 @@
+{
+  "model_name": "google/gemma-3-270m",
+  "model_revision": "9b0cfec892e2bc2afd938c98eabe4e4a7b1e0ca1",
+  "dataset_name": "shunk031/wrime",
+  "dataset_revision": "3fb7212c389d7818b8e6179e2cdac762f2e081d9",
+  "max_length": 512,
+  "splits": {
+    "train": {
+      "total": 30000,
+      "over_max_length": 0,
+      "over_max_length_ratio": 0.0,
+      "max_token_length": 192
+    },
+    "validation": {
+      "total": 2500,
+      "over_max_length": 0,
+      "over_max_length_ratio": 0.0,
+      "max_token_length": 121
+    },
+    "test": {
+      "total": 2500,
+      "over_max_length": 0,
+      "over_max_length_ratio": 0.0,
+      "max_token_length": 108
+    }
+  },
+  "overall": {
+    "total": 35000,
+    "over_max_length": 0,
+    "over_max_length_ratio": 0.0,
+    "max_token_length": 192
+  }
+}

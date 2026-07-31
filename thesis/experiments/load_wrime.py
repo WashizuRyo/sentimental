@@ -4,13 +4,13 @@ import torch
 from datasets import load_dataset
 from torch.utils.data import DataLoader
 from transformers import (
-    AutoModelForSequenceClassification,
     AutoTokenizer,
     DataCollatorWithPadding,
+    Gemma3TextForSequenceClassification,
 )
 
 
-MODEL_NAME = "google/gemma-3-270m-it"
+MODEL_NAME = "google/gemma-3-270m"
 MAX_LENGTH = 512
 BATCH_SIZE = 32
 SEED = 42
@@ -21,7 +21,40 @@ ID_TO_LABEL = {
 }
 
 
+def calculate_accuracy(
+    model: torch.nn.Module,
+    dataloader: DataLoader,
+    device: torch.device,
+) -> float:
+    """データローダー全体に対する正答率を計算する。"""
+    correct = 0
+    total = 0
+    num_batches = len(dataloader)
+
+    model.eval()
+    with torch.inference_mode():
+        for batch_index, batch in enumerate(dataloader, start=1):
+            labels = batch.pop("labels").to(device)
+            inputs = {
+                name: tensor.to(device)
+                for name, tensor in batch.items()
+            }
+            predictions = model(**inputs).logits.argmax(dim=-1)
+            correct += (predictions == labels).sum().item()
+            total += labels.numel()
+
+            if batch_index % 100 == 0 or batch_index == num_batches:
+                print(
+                    f"  evaluated {batch_index}/{num_batches} batches",
+                    flush=True,
+                )
+
+    return correct / total
+
+
 def main() -> None:
+    torch.manual_seed(SEED)
+
     dataset = load_dataset(
         "shunk031/wrime",
         name="ver2",
@@ -29,7 +62,7 @@ def main() -> None:
     )
 
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-    model = AutoModelForSequenceClassification.from_pretrained(
+    model = Gemma3TextForSequenceClassification.from_pretrained(
         MODEL_NAME,
         num_labels=len(LABEL_TO_ID),
         id2label=ID_TO_LABEL,
@@ -86,10 +119,19 @@ def main() -> None:
         ),
     }
 
-    first_batch = next(iter(dataloaders["train"]))
-    print(type(model).__name__)
-    print({name: tuple(tensor.shape) for name, tensor in first_batch.items()})
-    print(first_batch["labels"])
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+    elif torch.backends.mps.is_available():
+        device = torch.device("mps")
+    else:
+        device = torch.device("cpu")
+
+    model.to(device)
+    print(f"Evaluation device: {device}")
+    for split_name, dataloader in dataloaders.items():
+        print(f"Evaluating {split_name}...")
+        accuracy = calculate_accuracy(model, dataloader, device)
+        print(f"{split_name} accuracy: {accuracy:.4f}")
 
 
 if __name__ == "__main__":
