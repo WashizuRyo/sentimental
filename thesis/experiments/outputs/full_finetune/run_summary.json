@@ -1,0 +1,7 @@
+{
+  "validation_qwk_by_epoch": [0.4844, 0.5167, 0.4927],
+  "best_validation_qwk": 0.5166807419992812,
+  "best_checkpoint": "checkpoint-1876",
+  "best_epoch": 2,
+  "training_exit_code": 0
+}

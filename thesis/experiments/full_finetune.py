@@ -135,6 +135,8 @@ def main() -> None:
     model = Gemma3TextForSequenceClassification.from_pretrained(
         MODEL_NAME,
         revision=MODEL_REVISION,
+        # fp16混合精度では更新する重みをFP32に保持する。
+        dtype=torch.float32,
         num_labels=len(LABEL_TO_ID),
         id2label=ID_TO_LABEL,
         label2id={

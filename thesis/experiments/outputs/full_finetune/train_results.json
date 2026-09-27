@@ -1,0 +1,10 @@
+{
+  "epoch": 3.0,
+  "max_gpu_memory_allocated_gb": 9.59131383895874,
+  "max_gpu_memory_reserved_gb": 10.080078125,
+  "total_flos": 4115796598996992.0,
+  "train_loss": 0.8668906487042631,
+  "train_runtime": 1135.6449,
+  "train_samples_per_second": 79.25,
+  "train_steps_per_second": 2.478
+}
