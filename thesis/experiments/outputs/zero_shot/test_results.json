@@ -1,0 +1,17 @@
+{
+  "test_qwk": 0.00037613044305495613,
+  "test_accuracy": 0.1012,
+  "test_mae": 2.3144,
+  "test_samples": 2500,
+  "test_total_samples": 2500,
+  "test_is_full_split": true,
+  "invalid_outputs": 0,
+  "prediction_counts": {
+    "-2": 2496,
+    "-1": 0,
+    "0": 0,
+    "+1": 1,
+    "+2": 3
+  },
+  "inference_seconds": 126.04710295796394
+}
