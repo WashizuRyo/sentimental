@@ -1,0 +1,19 @@
+{
+    "epoch": 3.0,
+    "max_gpu_memory_allocated_gb": 5.290670394897461,
+    "max_gpu_memory_reserved_gb": 6.1953125,
+    "test_accuracy": 0.4068,
+    "test_loss": 1.330902099609375,
+    "test_mae": 0.7668,
+    "test_qwk": 0.5321460274706207,
+    "test_runtime": 6.4879,
+    "test_samples_per_second": 385.33,
+    "test_steps_per_second": 12.176,
+    "total_flos": 4131050558595072.0,
+    "total_parameters": 268473216,
+    "train_loss": 1.267132458825779,
+    "train_runtime": 740.3899,
+    "train_samples_per_second": 121.558,
+    "train_steps_per_second": 3.801,
+    "trainable_parameters": 371840
+}

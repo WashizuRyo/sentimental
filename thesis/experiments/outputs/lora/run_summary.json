@@ -1,0 +1,8 @@
+{
+  "validation_qwk_by_epoch": [0.5019089771156598, 0.5139535397548158, 0.5178532263078657],
+  "best_validation_qwk": 0.5178532263078657,
+  "best_checkpoint": "checkpoint-2814",
+  "best_epoch": 3,
+  "training_exit_code": 0,
+  "colab_notebook": "https://colab.research.google.com/drive/1n-AxDzW1xOSmzreqE9AEM9pkhlZUroBI"
+}

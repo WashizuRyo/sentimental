@@ -1,0 +1,10 @@
+{
+  "test_qwk": 0.0,
+  "test_accuracy": 0.2,
+  "test_mae": 1.8,
+  "test_samples": 10,
+  "test_total_samples": 2500,
+  "test_is_full_split": false,
+  "invalid_outputs": 0,
+  "inference_seconds": 2.8499074169667438
+}

@@ -1,0 +1,53 @@
+{
+  "executed_at": "2026-09-28T14:14:16+09:00",
+  "python": "3.12.12",
+  "torch": "2.13.0",
+  "transformers": "5.14.1",
+  "datasets": "2.21.0",
+  "scikit_learn": "1.9.0",
+  "device": "mps",
+  "device_name": "arm64",
+  "model_name": "google/gemma-3-270m-it",
+  "model_revision": "ac82b4e820549b854eebf28ce6dedaf9fdfa17b3",
+  "dataset_name": "shunk031/wrime",
+  "dataset_config": "ver2",
+  "dataset_revision": "3fb7212c389d7818b8e6179e2cdac762f2e081d9",
+  "split": "test",
+  "prompt_template": "次のSNS投稿に表れている，書き手本人の感情極性を分類してください。\nラベルは，-2（強いネガティブ），-1（ネガティブ），0（中立），+1（ポジティブ），+2（強いポジティブ）の5段階です。\n回答は「-2」「-1」「0」「+1」「+2」のいずれか一つだけを出力してください。\n\nSNS投稿：{sentence}\n回答：",
+  "labels": [
+    "-2",
+    "-1",
+    "0",
+    "+1",
+    "+2"
+  ],
+  "label_token_ids": [
+    [
+      236772,
+      236778
+    ],
+    [
+      236772,
+      236770
+    ],
+    [
+      236771
+    ],
+    [
+      236862,
+      236770
+    ],
+    [
+      236862,
+      236778
+    ]
+  ],
+  "chat_template": "{{ bos_token }}\n{%- if messages[0]['role'] == 'system' -%}\n    {%- if messages[0]['content'] is string -%}\n        {%- set first_user_prefix = messages[0]['content'] + '\n\n' -%}\n    {%- else -%}\n        {%- set first_user_prefix = messages[0]['content'][0]['text'] + '\n\n' -%}\n    {%- endif -%}\n    {%- set loop_messages = messages[1:] -%}\n{%- else -%}\n    {%- set first_user_prefix = \"\" -%}\n    {%- set loop_messages = messages -%}\n{%- endif -%}\n{%- for message in loop_messages -%}\n    {%- if (message['role'] == 'user') != (loop.index0 % 2 == 0) -%}\n        {{ raise_exception(\"Conversation roles must alternate user/assistant/user/assistant/...\") }}\n    {%- endif -%}\n    {%- if (message['role'] == 'assistant') -%}\n        {%- set role = \"model\" -%}\n    {%- else -%}\n        {%- set role = message['role'] -%}\n    {%- endif -%}\n    {{ '<start_of_turn>' + role + '\n' + (first_user_prefix if loop.first else \"\") }}\n    {%- if message['content'] is string -%}\n        {{ message['content'] | trim }}\n    {%- elif message['content'] is iterable -%}\n        {%- for item in message['content'] -%}\n            {%- if item['type'] == 'image' -%}\n                {{ '<start_of_image>' }}\n            {%- elif item['type'] == 'text' -%}\n                {{ item['text'] | trim }}\n            {%- endif -%}\n        {%- endfor -%}\n    {%- else -%}\n        {{ raise_exception(\"Invalid content type\") }}\n    {%- endif -%}\n    {{ '<end_of_turn>\n' }}\n{%- endfor -%}\n{%- if add_generation_prompt -%}\n    {{'<start_of_turn>model\n'}}\n{%- endif -%}\n",
+  "max_input_length": 512,
+  "max_new_tokens": 3,
+  "batch_size": 16,
+  "decoding": "greedy, constrained to the five label strings",
+  "temperature": null,
+  "top_p": null,
+  "seed": 42
+}

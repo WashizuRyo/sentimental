@@ -1,0 +1,10 @@
+{
+    "epoch": 3.0,
+    "test_accuracy": 0.4068,
+    "test_loss": 1.330902099609375,
+    "test_mae": 0.7668,
+    "test_qwk": 0.5321460274706207,
+    "test_runtime": 6.4879,
+    "test_samples_per_second": 385.33,
+    "test_steps_per_second": 12.176
+}

@@ -41,3 +41,7 @@ uv run \
   --with-requirements thesis/experiments/requirements.txt \
   python thesis/experiments/full_finetune.py
 ```
+
+## LoRAファインチューニング
+
+実行方法、LoRAの適用層、保存される成果物、および論文との設定差は[`lora/README.md`](./lora/README.md)を参照する。
